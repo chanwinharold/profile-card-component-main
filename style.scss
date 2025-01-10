@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap');
+
+// Variables
+$bgColor: hsl(185, 75%, 39%);
+$color: hsl(0, 0%, 59%);
+
+// Mixin
+@mixin flexbox($direction, $justify, $align) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin dimension($mesure) {
+    width: $mesure;
+    height: $mesure;
+}
+
+@mixin positionTop($top, $left) {
+    top: $top;
+    left: $left;
+}
+
+@mixin positionBottom($bottom, $right) {
+    bottom: $bottom;
+    right: $right;
+}
+
+
+
+
+* { margin: 0; }
+
+body {
+    max-width: 100%;
+    min-height: 100vh;
+    @include flexbox(column, center, center);
+    gap: 15px;
+
+    font-family: "Kumbh Sans", sans-serif;
+    font-size: 1em;
+    background-color: $bgColor;
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+
+
+
+}
+
+.component {
+    max-width: 400px;
+    min-width: 250px;
+    @include flexbox(column, center, center);
+    gap: 15px;
+
+    margin: 30px;
+    border-radius: 10px;
+    background-color: white;
+
+    &__images {
+        @include flexbox(column, center, center);
+        position: relative;
+        border-radius: 10px 10px 0 0;
+
+        &__background {
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+        }
+        &__profile {
+            position: relative;
+            top: -50px;
+            border: 3px solid white;
+            border-radius: 50%;
+            margin-bottom: -50px;
+        }
+    }
+    &__identity {
+        width: 100%;
+        @include flexbox(column, center, center);
+        gap: 15px;
+
+        border-bottom: 1px solid hsla(0, 0%, 59%, 0.5);
+        padding-bottom: 30px;
+
+        &__infos {
+            @include flexbox(row, center, center);
+            gap: 15px;
+
+            &__name {
+                font-size: 1.2em;
+                font-weight: 700;
+            }
+            &__age {
+                font-weight: 500;
+                color: $color;
+            }
+        }
+        &__city { color: $color; }
+    }
+    &__footer {
+        width: 100%;
+        @include flexbox(row, space-around, center);
+        padding: 0 20px 20px 20px;
+        & > span {
+            @include flexbox(column, center, center);
+            gap: 5px;
+        }
+        &__label { color: $color; font-size: 0.6em; }
+    }
+
+}
+
+.circle {
+    border-radius: 50%;
+    position: absolute;
+    z-index: -1;
+}
+.top { background: url("images/bg-pattern-top.svg") center/contain; }
+.bottom { background: url("images/bg-pattern-bottom.svg") center/contain; }
+
+
+@media screen and (max-width: 768px) {
+    .circle { @include dimension(500px); }
+    .top { @include positionTop(-300px, -300px) }
+    .bottom { @include positionBottom(-300px, -300px) }
+}
+@media screen and (min-width: 768px) {
+    .circle { @include dimension(600px); }
+    .top { @include positionTop(-300px, -200px); }
+    .bottom { @include positionBottom(-300px, -200px) }
+}
+@media screen and (min-width: 1024px) {
+    .circle { @include dimension(750px); }
+    .top { @include positionTop(-300px, -200px) }
+    .bottom { @include positionBottom(-400px, -150px) }
+}
+
+.attribution { font-size: 11px; text-align: center; a { color: hsl(228, 45%, 44%); } }
