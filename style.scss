@@ -12,23 +12,6 @@ $color: hsl(0, 0%, 59%);
     align-items: $align;
 }
 
-@mixin dimension($mesure) {
-    width: $mesure;
-    height: $mesure;
-}
-
-@mixin positionTop($top, $left) {
-    top: $top;
-    left: $left;
-}
-
-@mixin positionBottom($bottom, $right) {
-    bottom: $bottom;
-    right: $right;
-}
-
-
-
 
 * { margin: 0; }
 
@@ -42,11 +25,10 @@ body {
     font-size: 1em;
     background-color: $bgColor;
     margin: 0;
-    position: relative;
-    overflow: hidden;
-
-
-
+    background-image: url('images/bg-pattern-top.svg') , url('images/bg-pattern-bottom.svg');
+    background-position: top -50vh left -10vw, bottom -50vh right -10vw;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .component {
@@ -55,7 +37,7 @@ body {
     @include flexbox(column, center, center);
     gap: 15px;
 
-    margin: 30px;
+    margin: 1rem;
     border-radius: 10px;
     background-color: white;
 
@@ -74,6 +56,17 @@ body {
             border: 3px solid white;
             border-radius: 50%;
             margin-bottom: -50px;
+
+            animation-name: grow-and-shrunk;
+            animation-timing-function: ease-in;
+            animation-duration: 1250ms;
+            animation-fill-mode: both;
+            animation-direction: alternate-reverse;
+            animation-iteration-count: infinite;
+            
+            &:hover {
+                animation-play-state: paused;
+            }
         }
     }
     &__identity {
@@ -106,35 +99,23 @@ body {
         & > span {
             @include flexbox(column, center, center);
             gap: 5px;
+            transition: transform 300ms ease-out;
+
+            &:hover {
+                transform: scale(1.2);
+            }
         }
         &__label { color: $color; font-size: 0.6em; }
     }
-
-}
-
-.circle {
-    border-radius: 50%;
-    position: absolute;
-    z-index: -1;
-}
-.top { background: url("images/bg-pattern-top.svg") center/contain; }
-.bottom { background: url("images/bg-pattern-bottom.svg") center/contain; }
-
-
-@media screen and (max-width: 768px) {
-    .circle { @include dimension(500px); }
-    .top { @include positionTop(-300px, -300px) }
-    .bottom { @include positionBottom(-300px, -300px) }
-}
-@media screen and (min-width: 768px) {
-    .circle { @include dimension(600px); }
-    .top { @include positionTop(-300px, -200px); }
-    .bottom { @include positionBottom(-300px, -200px) }
-}
-@media screen and (min-width: 1024px) {
-    .circle { @include dimension(750px); }
-    .top { @include positionTop(-300px, -200px) }
-    .bottom { @include positionBottom(-400px, -150px) }
 }
 
 .attribution { font-size: 11px; text-align: center; a { color: hsl(228, 45%, 44%); } }
+
+@keyframes grow-and-shrunk {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.2);
+    }
+}
